@@ -67,4 +67,96 @@
      return 0;
  }
  
+ // Function to initialize the system
+ void initializeSystem(int lights[], int temperatures[], int motion[], int locks[]) {
+     for (int i = 0; i < MAX_ROOMS; i++) {
+         lights[i] = 0;  // Lights OFF
+         locks[i] = 1;   // Doors LOCKED
+         motion[i] = 0;  // No Motion Detected
+         temperatures[i] = 20 + (i * 2);  // Assigning some default temperatures
+     }
+     printf("System initialized with %d rooms.\n", MAX_ROOMS);
+ }
  
+ // Function to display menu
+ void displayMenu() {
+     printf("\n===== Smart Home Menu =====\n");
+     printf("1. Toggle Light\n");
+     printf("2. Read Temperature\n");
+     printf("3. Check Motion Sensor\n");
+     printf("4. Lock/Unlock Security System\n");
+     printf("5. House Status Summary\n");
+     printf("6. Exit\n");
+ }
+ 
+ // Function to toggle lights
+ void controlLights(int lights[]) {
+     int room;
+     printf("Enter room number to toggle light (1-%d): ", MAX_ROOMS);
+     scanf("%d", &room);
+ 
+     if (room < 1 || room > MAX_ROOMS) {
+         printf("Invalid room number!\n");
+         return;
+     }
+ 
+     lights[room - 1] = !lights[room - 1];
+     printf("Light in Room %d is now %s.\n", room, lights[room - 1] ? "ON" : "OFF");
+ }
+ 
+ // Function to read temperature of a room
+ void readTemperature(int temperatures[]) {
+     int room;
+     printf("Enter room number to read temperature (1-%d): ", MAX_ROOMS);
+     scanf("%d", &room);
+ 
+     if (room < 1 || room > MAX_ROOMS) {
+         printf("Invalid room number!\n");
+         return;
+     }
+ 
+     printf("Temperature in Room %d: %d°C\n", room, temperatures[room - 1]);
+ }
+ 
+ // Function to check motion sensor
+ void detectMotion(int motion[]) {
+     int room;
+     printf("Enter room number to check motion sensor (1-%d): ", MAX_ROOMS);
+     scanf("%d", &room);
+ 
+     if (room < 1 || room > MAX_ROOMS) {
+         printf("Invalid room number!\n");
+         return;
+     }
+ 
+     printf("Motion sensor in Room %d: %s\n", room, motion[room - 1] ? "Motion Detected" : "No Motion");
+ }
+ 
+ // Function to lock/unlock doors
+ void securitySystem(int locks[]) {
+     int room;
+     printf("Enter room number to toggle lock (1-%d): ", MAX_ROOMS);
+     scanf("%d", &room);
+ 
+     if (room < 1 || room > MAX_ROOMS) {
+         printf("Invalid room number!\n");
+         return;
+     }
+ 
+     locks[room - 1] = !locks[room - 1];
+     printf("Room %d is now %s.\n", room, locks[room - 1] ? "LOCKED" : "UNLOCKED");
+ }
+ 
+ // Function to analyze house status
+ void analyzeHouseStatus(int lights[], int temperatures[], int motion[], int locks[]) {
+     printf("\n===== House Status Summary =====\n");
+ 
+     for (int i = 0; i < MAX_ROOMS; i++) {
+         printf("- Room %d: Light %s, Temp %d°C, %s, %s\n",
+                i + 1,
+                lights[i] ? "ON" : "OFF",
+                temperatures[i],
+                motion[i] ? "Motion Detected" : "No Motion",
+                locks[i] ? "Locked" : "Unlocked");
+     }
+ } 
